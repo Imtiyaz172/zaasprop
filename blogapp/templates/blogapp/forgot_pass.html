@@ -1,0 +1,59 @@
+{% extends 'blogapp/base.html' %}
+{% block title %}  Change Password  {% endblock %}
+{% load staticfiles %}
+{% load data_load %}
+{% block content %}  
+  <section id="aa-signin">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-signin-area">
+            <div class="aa-signin-form">
+              <div class="aa-signin-form-title">
+                <a class="aa-property-home" href="index.html">Property Home</a>
+                <h4>Create your account and Stay with us</h4>
+                {% if messages %}
+                  <ul class="messages">
+                      {% for message in messages %}
+                      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h3 style="color:red">{{ message }}</h3></li>
+                      {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+              <form class="contactform" action="" method="POST">{% csrf_token %}
+                <div class="aa-single-field">
+                  <label for="">Email <span class="required">*</span></label>
+                  <input type="email" required="required" aria-required="true" value="" name="email">
+                </div>
+                <div class="aa-single-field">
+                  <label for="password">New Password <span class="required">*</span></label>
+                  <input type="password" name="password" id="new_pass1"> 
+                </div>
+                <div class="aa-single-field">
+                  <label for="confirm-password">Confirm Password <span class="required">*</span></label>
+                  <input type="password" name="confirm_password" id="confirm_pass2"> 
+                </div>
+                <div class="aa-single-submit">
+                  <input type="submit" value="Create Account" name="submit">                    
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> 
+  <script src="{% static 'blogapp/js/jquery.min.js' %}"></script>   
+    <script >
+    $("#confirm_pass2").change(function(){
+        if($("#new_pass1").val() != $("#confirm_pass2").val())
+        {
+          alert("Password dosn't match.");
+          $("#confirm_pass2").val('');
+          $("#confirm_pass2").focus();
+        }
+      });
+    </script>
+ 
+
+  {% endblock %}

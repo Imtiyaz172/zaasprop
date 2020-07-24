@@ -1,0 +1,162 @@
+{% extends 'blogapp/base.html' %}
+{% block title %}  List Your property {% endblock %}
+{% load staticfiles %}
+{% load data_load %}
+{% block content %} 
+  <section id="aa-signin">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-signin-area">
+            <div class="aa-signin-form">
+              <div class="aa-signin-form-title">
+                <a class="aa-property-home" href="">Advertise Your Property</a>
+                <h4></h4>
+                {% if messages %}
+                  <ul class="messages">
+                      {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:red">{{ message }}</li>
+                      {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+              <form class="contactform" action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+				<div class="aa-single-field">
+					<label for="name">Advertise for<span class="required">*</span></label>
+					<select name="category">
+                        {% for cat in category|cat %}
+                            <option value="{{ cat.id }}">{{cat.Name}}</option>
+                        {% endfor %}
+					</select>
+				</div>
+				<div class="aa-single-field">
+					<label for="name">Category<span class="required">*</span></label>
+					<select name="subcategory">
+                        {% for scat in subcat|scat %}
+                            <option value="{{ scat.id }}" >{{scat.Name}}</option>
+                        {% endfor %}
+					</select>
+				</div>
+                <div class="aa-single-field">
+                  <label for="name">Title <span class="required">*</span></label>
+                  <input type="text" required="required" aria-required="true" value="" name="title">
+                </div>
+                <div class="aa-single-field">
+                  <label for="">Image 1<span class="required">*</span></label>
+                  <input type="file" required="required" aria-required="true" value="0" name="image1">
+                </div>
+                <div class="aa-single-field">
+                  <label for="email">Image 2<span></span></label>
+                  <input type="file" aria-required="true" value="" name="image2">
+                </div>
+               <div class="aa-single-field">
+                  <label for="email">Image 3<span></span></label>
+                  <input type="file" aria-required="true" value="" name="image3">
+                </div>
+               <div class="aa-single-field">
+                  <label for="email">Image 4<span></span></label>
+                  <input type="file" aria-required="true" value="" name="image4">
+                </div>
+               <div class="aa-single-field">
+                  <label for="email">Image 5<span></span></label>
+                  <input type="file" aria-required="true" value="" name="image5">
+                </div>
+				<div class="aa-single-field">
+                  <label for="name">Price <span></span></label>
+                  <input type="text" aria-required="true" value="" name="price">
+                </div>
+				<div class="aa-single-field">
+                  <label for="name">Area <span></span></label>
+                  <input type="text" aria-required="true" value="" name="area">
+                </div>
+				<div class="aa-single-field">
+                  <label for="name">Discription<span class="required">*</span></label>
+                  <input type="text" required="required" aria-required="true" value="" name="discription">
+                </div>
+                <div class="aa-single-field">
+                  <label for="name">Feature 1<span class="required">*</span></label>
+                  <input type="text" required="required" aria-required="true" value="" name="feature1">
+                </div>
+				<div class="aa-single-field">
+                  <label for="name">Feature 2<span ></span></label>
+                  <input type="text" aria-required="true" value="" name="feature2">
+                </div>
+				<div class="aa-single-field">
+                  <label for="name">Feature 3<span ></span></label>
+                  <input type="text" aria-required="true" value="" name="feature3">
+                </div>
+                <div class="aa-single-field">
+                  <label for="name">Feature 4<span ></span></label>
+                  <input type="text" aria-required="true" value="" name="feature4">
+                </div>
+                <div class="aa-single-field">
+                  <label for="name">Feature 5<span ></span></label>
+                  <input type="text" aria-required="true" value="" name="feature5">
+                </div>
+                <div class="aa-single-field">
+                  <label for="name">Feature 6<span ></span></label>
+                  <input type="text" aria-required="true" value="" name="feature6">
+                </div>
+                <div class="aa-single-field">
+                  <label for="name">Feature 7<span ></span></label>
+                  <input type="text" aria-required="true" value="" name="feature7">
+                </div>
+                <div class="aa-single-field">
+                  <label for="name">Feature 8<span ></span></label>
+                  <input type="text" aria-required="true" value="" name="feature8">
+                </div>
+                <div class="aa-single-field">
+                  <label for="name">Feature 9<span ></span></label>
+                  <input type="text" aria-required="true" value="" name="feature9">
+                </div>
+                <div class="aa-single-field">
+                  <label for="name">Feature 10<span ></span></label>
+                  <input type="text" aria-required="true" value="" name="feature10">
+                </div>
+                <div class="aa-single-field">
+                  <label for="name">Feature 11<span ></span></label>
+                  <input type="text" aria-required="true" value="" name="feature11">
+                </div>
+                <div class="aa-single-field">
+                  <label for="name">Feature 12<span ></span></label>
+                  <input type="text" aria-required="true" value="" name="feature12">
+                </div>
+                <div class="aa-single-field">
+                  <label for="name">Feature 13<span ></span></label>
+                  <input type="text" aria-required="true" value="" name="feature13">
+                </div>
+                <div class="aa-single-field">
+                  <label for="name">Feature 14<span ></span></label>
+                  <input type="text" aria-required="true" value="" name="feature14">
+                </div>
+                <div class="aa-single-field">
+                  <label for="name">Feature 15<span ></span></label>
+                  <input type="text" aria-required="true" value="" name="feature15">
+                </div>
+				<div class="aa-single-field">
+                  <label for="name">Location <span class="required">*</span></label>
+                  <input type="text" required="required" aria-required="true" value="" name="location">
+                </div>
+				<div class="aa-single-field">
+                  <label for="name">Your Name<span class="required">*</span></label>
+                  <input type="text" required="required" aria-required="true" value="" name="contact_name">
+                </div>
+				<div class="aa-single-field">
+                  <label for="name">Phone Number<span class="required">*</span></label>
+                  <input type="text" required="required" aria-required="true" value="" name="Phone_number">
+                </div>
+				<div class="aa-single-field">
+                  <label for="name">Email<span ></span></label>
+                  <input type="text" aria-required="true" value="" name="mail">
+                </div>
+                <div class="aa-single-submit">
+                  <input type="submit" value="Confirm" name="submit">                    
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> 
+  {% endblock %}

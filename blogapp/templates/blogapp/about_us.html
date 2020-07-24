@@ -1,0 +1,65 @@
+{% extends 'blogapp/base.html' %}
+{% load staticfiles %}
+{% block title %} {{ seo_contain.about_us_title }}  {% endblock %}
+{% block meta_description %} {{ seo_contain.about_us_meta_description }} {% endblock %}
+{% block meta_keywords %} {{ seo_contain.about_us_meta_keywords }} {% endblock %}
+{% block meta_title %} {{ seo_contain.about_us_meta_title }} {% endblock %}
+{% load data_load %}
+{% block content %}
+
+  {% for hed in logoicon|logoreg|slice:"1" %}
+    <section id="aa-property-header" style="background-image: url(/static/blogapp/media/{{hed.header_image}});">
+  {% endfor %}  
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-property-header-inner">
+            <h2>About Us</h2>
+            <ol class="breadcrumb">
+          </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> 
+  <!-- About us -->
+  <section id="aa-about-us">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-about-us-area">
+            <div class="row">
+              <div class="col-md-5">
+                <div class="aa-about-us-left">
+                  <img src="/static/blogapp/media/{{about_us.Image}}" alt="image">
+                </div>
+              </div>
+              <div class="col-md-7">
+                <div class="aa-about-us-right">
+                  <div class="aa-title">
+                    <h2>{{about_us.Title|safe}}</h2>
+                    <span></span>
+                  </div>
+                  <p>{{about_us.Speach|safe}}</p>                  
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / About us -->
+
+
+  <!-- Promo Banner Section -->
+  <section id="aa-promo-banner">
+    {% for about_us in logoicon|logoreg %}
+      <center><img src="/static/blogapp/media/{{about_us.Image}}" alt="image"></center>
+      
+    {% endfor %} 
+  </section>
+  <!-- / Promo Banner Section -->
+
+{% endblock %}

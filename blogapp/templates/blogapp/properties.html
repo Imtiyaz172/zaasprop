@@ -1,0 +1,203 @@
+{% extends 'blogapp/base.html' %}
+{% block title %} {{ seo_contain.properties_title }}  {% endblock %}
+{% block meta_description %} {{ seo_contain.properties_meta_description }} {% endblock %}
+{% block meta_keywords %} {{ seo_contain.properties_meta_keywords }} {% endblock %}
+{% block meta_title %} {{ seo_contain.properties_meta_title }} {% endblock %}
+{% load staticfiles %}
+{% load data_load %}
+{% block content %}
+
+  <!-- End Proerty header  -->
+  {% for hed in logoicon|logoreg|slice:"1" %}
+    <section id="aa-property-header" style="background-image: url(/static/blogapp/media/{{hed.header_image}});">
+  {% endfor %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-property-header-inner">
+            <h2>Properties Page</h2>
+            <ol class="breadcrumb">
+          </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> 
+  <!-- Start Properties  -->
+  <section id="aa-properties">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="aa-properties-content">
+            <!-- start properties content head -->
+            <div class="aa-properties-content-head">
+              <div class="propertyid">
+              <form class="contactform" action="" method="GET">{% csrf_token %}                       
+                    <input type="text" placeholder="Search By Property ID" name="propertyID">
+                    <input class="aa-search-btn" type="submit" value="Search">
+              </form>
+              </div>
+              <div class="aa-properties-content-head-right">
+                <a id="aa-grid-properties" href="#"><span class="fa fa-th"></span></a>
+                <a id="aa-list-properties" href="#"><span class="fa fa-list"></span></a>
+              </div>            
+            </div>
+            {% if messages %}
+                  <ul class="messages alert alert-warning show" >
+                      {% for message in messages %}
+                      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><center><h3 style="color:red; padding-top:50px">{{ message }}</h3></center></li>
+                      {% endfor %}
+                  </ul>
+                {% endif %}
+            <!-- Start properties content body -->
+            <div class="aa-properties-content-body">
+              <ul class="aa-properties-nav">
+               
+            
+              {% if location1 %}
+                 {% for p in location1 %}
+                  <li>
+                  <article class="aa-properties-item">
+                    <a class="aa-properties-item-img" href="/{{ p.title|str2url }}">
+                      <img alt="img" src="/static/blogapp/media/{{ p.image1 }}">
+                    </a>
+                    <div class="aa-tag for-rent">
+                      {{p.category}}
+                    </div>
+                    <div class="aa-properties-item-content">
+                      <div class="aa-properties-info">
+                        <span>{{p.feature1}}</span>
+                        <span>{{p.feature2}}</span>
+                        <span>{{p.feature3}}</span>
+                        <span>{{p.feature4}}</span>
+                      </div>
+                      <div class="aa-properties-about">
+                        <h3><a href="/{{ p.title|str2url }}">{{p.title|truncatechars:22}}</a></h3>
+                        <p class="aa-top-slider-location"><i class="fa fa-map-marker"></i> {{p.location}}</p>
+                        <p>{{p.discription|truncatewords:10|safe}}</p>                      
+                      </div>
+                      <div class="aa-properties-detial">
+                        <span class="aa-price">
+                          BDT {{p.price}}
+                        </span>
+                        <a class="aa-secondary-btn" href="/{{ p.title|str2url }}">View Details</a>
+                      </div>
+                    </div>
+                  </article>
+                </li>
+                {% endfor %}
+                {% endif %} 
+
+               {% if post %}                     
+                {% for p in post %}
+                  <li>
+                  <article class="aa-properties-item">
+                    <a class="aa-properties-item-img" href="/{{ p.title|str2url }}">
+                      <img alt="img" src="/static/blogapp/media/{{ p.image1 }}">
+                    </a>
+                    <div class="aa-tag for-rent">
+                      {{p.category}}
+                    </div>
+                    <div class="aa-properties-item-content">
+                      <div class="aa-properties-info">
+                        <span>{{p.feature1}}</span>
+                        <span>{{p.feature2}}</span>
+                        <span>{{p.feature3}}</span>
+                        <span>{{p.feature4}}</span>
+                      </div>
+                      <div class="aa-properties-about">
+                        <h3><a href="/{{ p.title|str2url }}">{{p.title|truncatechars:22}}</a></h3>
+                        <p class="aa-top-slider-location"><i class="fa fa-map-marker"></i> {{p.location}}</p>
+                        <p>{{p.discription|truncatewords:10|safe}}</p>                      
+                      </div>
+                      <div class="aa-properties-detial">
+                        <span class="aa-price">
+                          BDT {{p.price}}
+                        </span>
+                        <a class="aa-secondary-btn" href="/{{ p.title|str2url }}">View Details</a>
+                      </div>
+                    </div>
+                  </article>
+                </li>
+                {% endfor %}
+                {% endif %}
+              </ul>
+            </div>
+            <!-- Start properties content bottom -->
+            
+            <div class="aa-properties-content-bottom">
+              <div class="pagination">
+                <span class="step-links">
+                    {% if post.has_previous %}
+                        <a href="?page={{ post.previous_page_number }}"class="pagee"><i class="fa fa-arrow-left"></i> Previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ post.number }} of {{ post.paginator.num_pages }}.
+                    </span>
+
+                    {% if post.has_next %}
+                        <a href="?page={{ post.next_page_number }}"class="pagee">Next <i class="fa fa-arrow-right"></i></a>
+                    {% endif %}
+                </span>
+               </div>
+            </div>
+          </div>
+        </div>
+        <!-- Start properties sidebar -->
+        <div class="col-md-4">
+          <aside class="aa-properties-sidebar">
+            <!-- Start Single properties sidebar -->
+            <div class="aa-properties-single-sidebar">
+              <h3>Properties Search</h3>
+              <form action="" method="POST">{% csrf_token %}
+                <div class="aa-single-advance-search">
+                  <input type="text" placeholder="Type Your Location" name='location'>
+                </div>
+                <div class="aa-single-advance-search">
+                  <select id="" name="category">
+                    {% for cat in category|cat %}
+                      <option value="{{ cat.id }}">{{cat.Name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="aa-single-advance-search">
+                  <select id="" name="subcategory">
+                    {% for scat in subcat|scat %}
+                      <option value="{{ scat.id }}" >{{scat.Name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+               
+                <div class="aa-single-advance-search">
+                  <input type="submit" value="Search" class="aa-search-btn">
+                </div>
+              </form>
+            </div> 
+            <!-- Start Single properties sidebar -->
+            <div class="aa-properties-single-sidebar">
+              <h3>Populer Properties</h3>
+              {% for p in populer|pop|slice:"5" %}
+                <div class="media">
+                <div class="media-left">
+                  <a href="/{{ p.title|str2url }}">
+                    <img class="media-object" src="/static/blogapp/media/{{p.image1}}" alt="img">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading"><a href="#">{{p.title}}</a></h4>
+                   <p class="aa-top-slider-location"><i class="fa fa-map-marker"></i> {{p.location}}</p>             
+                  <span>{{p.price}}</span>
+                </div>              
+              </div>
+              {% endfor %}
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / Properties  -->
+
+ 
+{% endblock %}

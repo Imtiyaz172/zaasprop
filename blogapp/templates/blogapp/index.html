@@ -1,0 +1,341 @@
+{% extends 'blogapp/base.html' %}
+{% block title %} {{ seo_contain.index_meta_title }}  {% endblock %}
+{% block meta_description %} {{ seo_contain.index_meta_description }} {% endblock %}
+{% block meta_keywords %} {{ seo_contain.index_meta_keywords }} {% endblock %}
+{% block meta_title %} {{ seo_contain.index_meta_title }} {% endblock %}
+{% load staticfiles %}
+{% load data_load %}
+{% block content %}
+
+  <!-- Start slider  -->
+  <section id="aa-slider">
+    <div class="aa-slider-area"> 
+      <!-- Top slider -->
+      <div class="aa-top-slider">
+        <!-- Top slider single slide -->
+        {% for p in slider %}
+          <div class="aa-top-slider-single">
+          <img src="/static/blogapp/media/{{p.image}}" alt="img" >
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  <!-- End slider  -->
+
+  <!-- Advance Search -->
+  <section id="aa-advance-search">
+    <div class="container">
+      <div class="aa-advance-search-area">
+        <div class="form">
+         <div class="aa-advance-search-top">
+            <div class="row">
+            <form action="" method="POST">{% csrf_token %}
+              <div class="col-md-4">
+                <div class="aa-single-advance-search">
+                  <input type="text" placeholder="Type Your Location" name="location">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="aa-single-advance-search">
+                  <select name="category">
+                   {% for cat in category|cat %}
+                      <option value="{{ cat.id }}">{{cat.Name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                 <div class="aa-single-advance-search">
+                  <select  name="subcategory">
+                    {% for scat in subcat|scat %}
+                      <option value="{{ scat.id }}" >{{scat.Name}}</option>
+                    {% endfor %}
+                  </select>
+              </div>
+              </div>
+              
+              <div class="col-md-2">
+                <div class="aa-single-advance-search">
+                  <input class="aa-search-btn" type="submit" value="Search">
+                </div>
+              </div>
+                </form>
+            </div>
+            {% if messages %}
+                  <ul class="messages alert alert-warning show" >
+                      {% for message in messages %}
+                      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><center><h3 style="color:red; padding-top:50px">{{ message }}</h3></center></li>
+                      {% endfor %}
+                  </ul>
+                {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / Advance Search -->
+
+  <!-- Service section -->
+  <section id="aa-service">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-service-area">
+            <div class="aa-title">
+              <h2>Our Services</h2>
+              <span></span>
+            </div>
+            <!-- service content -->
+            <div class="aa-service-content">
+              <div class="row">
+            <div class="aa-agents-content">
+            <ul class="aa-agents-slider">
+              {% for ser in service %}
+                <li>                 
+                    <div class="aa-single-service">
+                      <div class="aa-service-icon">
+                        <span class="{{ser.Icon}}"></span>
+                      </div>
+                      <div class="aa-single-service-content">
+                        <h4><a >{{ser.Title|safe}}</a></h4>
+                        <p>{{ser.Details|safe}}</p>
+                      </div>
+                    </div>
+                </li>
+              {% endfor %}
+            </ul>
+               </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / Service section -->
+
+
+
+  <!-- Suggested property -->
+    <section id="aa-latest-property">
+    <div class="container">
+      <div class="aa-latest-property-area">
+        <div class="aa-title">
+          <h2>Featured Properties</h2>
+          <span></span>         
+        </div>
+        <div class="aa-latest-properties-content">
+          <div class="row">
+          <div class="aa-agents-content ">
+            <ul class="aa-agents-slider ">
+            {% for sug in suggest %}
+              <li style= margin-right:10px ">
+              <article class="aa-properties-item">
+                <a href="/{{ sug.title|str2url }}" class="aa-properties-item-img">
+                  <img src="/static/blogapp/media/{{sug.image1}}" alt="img" href="/{{ sug.title|str2url }}">
+                </a>
+                <div class="aa-tag for-sale">
+                  {{sug.category}}
+                </div>
+                <div class="aa-properties-item-content">
+                  <div class="aa-properties-info">
+                    <span>{{sug.feature1}}</span>
+                    <span>{{sug.feature2}}</span>
+                    <span>{{sug.feature3}}</span>
+                    <span>{{sug.feature4}}</span>
+                  </div>
+                  <div class="aa-properties-about">
+                    <h3><a href="/{{ sug.title|str2url }}">{{sug.title|truncatechars:22}}</a></h3>
+                    <p class="aa-top-slider-location"><i class="fa fa-map-marker"></i> {{sug.location}}</p>
+                    <p>{{sug.discription|truncatechars:100|safe}}</p>                      
+                  </div>
+                  <div class="aa-properties-detial">
+                    <span class="aa-price">
+                      BDT {{sug.price}}
+                    </span> 
+                    <a href="/{{ sug.title|str2url }}" class="aa-secondary-btn">View Details</a>
+                  </div>
+                </div>
+              </article>
+            </li>   
+            {% endfor %}
+            </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Suggested property -->
+  
+  <!-- Latest property -->
+  <section id="aa-latest-property">
+    <div class="container">
+      <div class="aa-latest-property-area">
+        <div class="aa-title">
+          <h2>Latest Properties</h2>
+          <span></span>         
+        </div>
+        <div class="aa-latest-properties-content">
+          <div class="row">
+          <div class="aa-agents-content ">
+            <ul class="aa-agents-slider ">
+            {% for let in letest %}
+              <li style= margin-right:10px ">
+              <article class="aa-properties-item">
+                <a href="/{{ let.title|str2url }}" class="aa-properties-item-img">
+                  <img src="/static/blogapp/media/{{let.image1}}" alt="img" href="/{{ let.title|str2url }}">
+                </a>
+                <div class="aa-tag for-sale">
+                  {{let.category}}
+                </div>
+                <div class="aa-properties-item-content">
+                  <div class="aa-properties-info">
+                    <span>{{let.feature1}}</span>
+                    <span>{{let.feature2}}</span>
+                    <span>{{let.feature3}}</span>
+                    <span>{{let.feature4}}</span>
+                  </div>
+                  <div class="aa-properties-about">
+                    <h3><a href="/{{ let.title|str2url }}">{{let.title|truncatechars:22}}</a></h3>
+                    <p class="aa-top-slider-location"><i class="fa fa-map-marker"></i> {{let.location}}</p>
+                    <p>{{let.discription|truncatechars:100|safe}}</p>                      
+                  </div>
+                  <div class="aa-properties-detial">
+                    <span class="aa-price">
+                      BDT {{let.price}}
+                    </span> 
+                    <a href="/{{ let.title|str2url }}" class="aa-secondary-btn">View Details</a>
+                  </div>
+                </div>
+              </article>
+            </li>    
+            {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / Latest property -->
+
+ 
+  <!-- Our Agent Section-->
+  <section id="aa-agents">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-agents-area">
+            <div class="aa-title">
+              <h2>Our Agents</h2>
+              <span></span>
+            </div>
+            <!-- agents content -->
+            <div class="aa-agents-content">
+              <ul class="aa-agents-slider">
+              {% for ag in agents %}
+                <li>
+                  <div class="aa-single-agents">
+                    <div class="aa-agents-img">
+                      <img src="/static/blogapp/media/{{ag.Image}}" alt="agent member image" style="height:250px">
+                    </div>
+                    <div class="aa-agetns-info">
+                      <h4><a href="#">{{ag.Name}}</a></h4>
+                      <span>{{ag.Designation}}</span>
+                      <span>{{ag.phone}}</span>
+                      <span>{{ag.mail}}</span>
+                      <div class="aa-agent-social">
+                        <a href="{{ag.Facebook}}" target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a href="{{ag.Twitter}}" target="_blank"><i class="fa fa-twitter"></i></a>
+                        <a href="{{ag.linkdin}}" target="_blank"><i class="fa fa-linkedin"></i></a>
+                        <a href="{{ag.google_plas}}"" target="_blank"><i class="fa fa-google-plus"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / Our Agent Section-->
+
+
+  {% comment %} <section id="aa-latest-blog">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-latest-blog-area">
+            <div class="aa-title">
+              <h2>Latest News</h2>
+              <span></span>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe magni, est harum repellendus. Accusantium, nostrum!</p>
+            </div>
+            <div class="aa-latest-blog-content">
+              <div class="row">
+                <div class="col-md-4">
+                  <article class="aa-blog-single">
+                    <figure class="aa-blog-img">
+                      <a href="#"><img src="{% static 'blogapp/img/blog-img-1.jpg'%}" alt="img"></a>
+                      <span class="aa-date-tag">15 April, 16</span>
+                    </figure>
+                    <div class="aa-blog-single-content">
+                      <h3><a href="#">Lorem ipsum dolor sit amet, consectetur.</a></h3>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio est quaerat magnam exercitationem voluptas, voluptatem sed quam ab laborum voluptatum tempore dolores itaque, molestias vitae.</p>
+                      <div class="aa-blog-single-bottom">
+                        <a href="#" class="aa-blog-author"><i class="fa fa-user"></i> Admin</a>
+                        <a href="#" class="aa-blog-comments"><i class="fa fa-comment-o"></i>6</a>
+                      </div>
+                    </div>
+                   
+                  </article>
+                </div>
+                <div class="col-md-4">
+                  <article class="aa-blog-single">
+                    <figure class="aa-blog-img">
+                      <a href="#"><img src="{% static 'blogapp/img/blog-img-2.jpg'%}" alt="img"></a>
+                      <span class="aa-date-tag">15 April, 16</span>
+                    </figure>
+                    <div class="aa-blog-single-content">
+                      <h3><a href="#">Lorem ipsum dolor sit amet, consectetur.</a></h3>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio est quaerat magnam exercitationem voluptas, voluptatem sed quam ab laborum voluptatum tempore dolores itaque, molestias vitae.</p>
+                      <div class="aa-blog-single-bottom">
+                        <a href="#" class="aa-blog-author"><i class="fa fa-user"></i> Admin</a>
+                        <a href="#" class="aa-blog-comments"><i class="fa fa-comment-o"></i>6</a>
+                      </div>
+                    </div>                   
+                  </article>
+                </div>
+                <div class="col-md-4">
+                  <article class="aa-blog-single">
+                    <figure class="aa-blog-img">
+                      <a href="#"><img src="{% static 'blogapp/img/blog-img-3.jpg'%}" alt="img"></a>
+                      <span class="aa-date-tag">15 April, 16</span>
+                    </figure>
+                    <div class="aa-blog-single-content">
+                      <h3><a href="#">Lorem ipsum dolor sit amet, consectetur.</a></h3>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio est quaerat magnam exercitationem voluptas, voluptatem sed quam ab laborum voluptatum tempore dolores itaque, molestias vitae.</p>
+                      <div class="aa-blog-single-bottom">
+                        <a href="#" class="aa-blog-author"><i class="fa fa-user"></i> Admin</a>
+                        <a href="#" class="aa-blog-comments"><i class="fa fa-comment-o"></i>6</a>
+                      </div>
+                    </div>                   
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ {% endcomment %}
+
+{% endblock %}

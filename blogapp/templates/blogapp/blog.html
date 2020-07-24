@@ -1,0 +1,160 @@
+{% extends 'blogapp/base.html' %}
+{% block title %} {{ seo_contain.blog_title }}  {% endblock %}
+{% block meta_description %} {{ seo_contain.blog_meta_description }} {% endblock %}
+{% block meta_keywords %} {{ seo_contain.blog_meta_keywords }} {% endblock %}
+{% block meta_title %} {{ seo_contain.blog_meta_title }} {% endblock %}
+{% load staticfiles %}
+{% load data_load %}
+{% block content %}
+  <!-- Start Blog  -->
+    {% for hed in logoicon|logoreg|slice:"1" %}
+    <section id="aa-property-header" style="background-image: url(/static/blogapp/media/{{hed.header_image}});">
+  {% endfor %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-property-header-inner">
+            <h2>Blog Page</h2>
+            <ol class="breadcrumb">
+          </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> 
+  <section id="aa-blog">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-blog-area">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="aa-blog-content">
+                  <div class="row">
+                  {% if messages %}
+              <ul class="messages alert alert-warning show" >
+                  {% for message in messages %}
+                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><center><h3 style="color:red; padding-top:50px">{{ message }}</h3></center></li>
+                  {% endfor %}
+              </ul>
+            {% endif %}
+            <!-- Start properties content body -->
+            <div class="aa-properties-content-body">
+              <ul class="aa-properties-nav">
+               
+            
+              {% if blogsearch %}
+                 {% for p in blogsearch %}
+                    <div class="col-md-6 col-sm-6">
+                      <article class="aa-blog-single">
+                        <figure class="aa-blog-img">
+                          <a href="#"><img alt="img" src="/static/blogapp/media/{{ p.image1 }}"></a>
+                          <span class="aa-date-tag">{{p.upload_date}}</span>
+                        </figure>
+                        <div class="aa-blog-single-content">
+                          <h3><a href="#">{{p.title|truncatewords:8}}</a></h3>
+                          <p>{{p.discription|truncatewords:15|safe}}</p>
+                          <div class="aa-blog-single-bottom">
+                            <a class="aa-blog-author"><i class="fa fa-user"></i>{{p.author}}</a>
+                            {% comment %} <a class="aa-blog-comments" href="#"><i class="fa fa-comment-o"></i>6</a> {% endcomment %}
+                          </div>
+                        </div>                   
+                      </article>
+                    </div>
+                    {% endfor %}
+                {% endif %} 
+
+               {% if blog %}                     
+                {% for p in blog %}
+                   <div class="col-md-6 col-sm-6">
+                      <article class="aa-blog-single">
+                        <figure class="aa-blog-img">
+                          <a href="/blog/{{ p.title|str2url }}"><img alt="img" src="/static/blogapp/media/{{ p.image1 }}"></a>
+                          <span class="aa-date-tag">{{p.upload_date}}</span>
+                        </figure>
+                        <div class="aa-blog-single-content">
+                          <h3><a href="/blog/{{ p.title|str2url }}">{{p.title|truncatewords:8}}</a></h3>
+                          <p>{{p.discription|truncatewords:10|safe}}</p>
+                          <div class="aa-blog-single-bottom">
+                            <a class="aa-blog-author"><i class="fa fa-user"></i>{{p.author}}</a>
+                            {% comment %} <a class="aa-blog-comments" href="#"><i class="fa fa-comment-o"></i>6</a> {% endcomment %}
+                          </div>
+                        </div>                   
+                      </article>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+                      <div class="aa-properties-content-bottom">
+              <div class="pagination">
+                <span class="step-links">
+                    {% if blog.has_previous %}
+                        <a href="?page={{ blog.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ blog.number }} of {{ blog.paginator.num_pages }}.
+                    </span>
+
+                    {% if blog.has_next %}
+                        <a href="?page={{ blog.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+               </div>
+            </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Start blog sidebar -->
+              <div class="col-md-4">
+                <aside class="aa-blog-sidebar">
+                  <!-- Start single sidebar -->
+                  <div class="aa-blog-sidebar-single">
+                    <form action="" method="POST">{% csrf_token %}
+                      <div class="aa-blog-search">
+                        <input class="aa-search-text" type="text" placeholder="Search..." name="title">
+                        <button class="aa-search-submit" type="submit">
+                          <i class="fa fa-search"></i>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- Start single sidebar -->
+                  <div class="aa-blog-sidebar-single">
+                    <h3>Populer Post</h3>
+                    <div class="aa-blog-recent-post">
+                    {% for p in populerblog|popb|slice:"5" %}
+                      <div class="media">
+                        <div class="media-left">
+                          <a href="#">
+                            <img alt="img" src="/static/blogapp/media/{{p.image1}}" class="media-object">
+                          </a>
+                        </div>
+                        <div class="media-body">
+                          <h4 class="media-heading"><a href="#">{{p.title}}</a></h4>
+                          <p class="aa-top-slider-location"><i class="fa fa-user"></i> {{p.author}}</p>                
+                          <span>{{p.upload_date}}</span>
+                        </div>              
+                      </div>
+                      {% endfor %}
+                    </div>                    
+                  </div>
+                  <!-- Start single sidebar -->
+                  {% comment %} <div class="aa-blog-sidebar-single">                    
+                    <div class="aa-banner-ads">
+                      <a href="#">
+                        <img src="img/banner-ads.jpg" alt="banner img">
+                      </a>
+                    </div>                    
+                  </div> {% endcomment %}
+                </aside>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / Blog  -->
+ 
+{% endblock %}

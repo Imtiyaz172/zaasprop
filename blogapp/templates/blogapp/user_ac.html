@@ -1,0 +1,52 @@
+{% extends 'blogapp/base.html' %}
+{% block title %}  My acount  {% endblock %}
+{% load staticfiles %}
+{% load data_load %}
+{% block content %} 
+  <section id="aa-signin">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+         
+            <div class="container">
+    
+    <table class="table custab" style="width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    background: white;
+    margin-top: 60px;
+    margin-bottom: 325px;
+">
+    <thead>
+        <tr>
+            <th>Property ID</th>
+            <th>Title</th>
+            <th>For</th>
+            <th>Type</th>
+            <th>Location</th>
+            <th>Aproved</th>
+            <th>Visitor</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+            {% for us in user_post %}
+              <tr>
+                  <td>{{us.propertyID}}</td>
+                  <td>{{us.title}}</td>
+                  <td>{{us.category}}</td>
+                  <td>{{us.subcategory}}</td>
+                  <td>{{us.location}}</td>
+                  <td>{{us.Status}}</td>
+                  <td>{{us.view}}</td>
+                  <td class="text-center"><a class='btn btn-info btn-xs' href="/edit-post/{{ us.propertyID }}"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="/delete-post/{{ us.propertyID }}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+              </tr>
+            {% endfor %}
+            
+    </table>
+</div>
+          </div>
+        </div>
+      </div>
+  </section>
+  
+  {% endblock %}
